@@ -5,21 +5,35 @@ using UnityEngine;
 public class Generator : MonoBehaviour
 {
     [Range(0, 100)] public float pointDensity;
-    public int width;
-    public int height;
+    public int width = 100;
+    public int height = 100;
 
-    public float seed = 0.0f;
+    public int seed = 0;
 
     public float scale = 1;
 
     public float originX;
     public float originY;
 
+    public int resolution = 10;
+
     private Texture2D noiseTexture;
     private Color[] pixels;
     private Renderer renderer;
 
-    void CalculateNoise()
+    void InstantiateCell(float sample, float x, float y)
+    {
+        Debug.Log(sample);
+        GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
+
+        var planeRenderer = plane.GetComponent<Renderer>();
+        planeRenderer.material.SetColor("_Color", new Color(sample, sample, sample));
+        plane.transform.position = new Vector3(x, 0, y);
+
+    }
+
+
+    void InitializeCells()
     {
         float y = 0.0F;
 
@@ -30,12 +44,14 @@ public class Generator : MonoBehaviour
             {
                 float currentX = (originX + seed) + x / noiseTexture.width * scale;
                 float currentY = (originY + seed) + y / noiseTexture.width * scale;
-
-                float sample = Mathf.PerlinNoise(currentX, currentY);
+                //float sample = Mathf.PerlinNoise(currentX, currentY);
+                float sample = Random.value;
+                InstantiateCell(sample, originX + x, originY + y);
+                
                 pixels[(int)y * noiseTexture.width + (int)x] = new Color(sample, sample, sample);
-                x++;
+                x+= (noiseTexture.width / resolution);
             }
-            y++;
+            y += (noiseTexture.height / resolution);
         }
         noiseTexture.SetPixels(pixels);
         noiseTexture.Apply();
@@ -46,20 +62,22 @@ public class Generator : MonoBehaviour
     {
         if (seed == 0)
         {
-            seed = Random.Range(0.0f, 9999999.0f);
+            seed = Random.Range(0, 9999);
         }
+
+        Random.InitState(seed);
 
         renderer = GetComponent<Renderer>();
 
         noiseTexture = new Texture2D(width, height);
         pixels = new Color[noiseTexture.width * noiseTexture.height];
         renderer.material.mainTexture = noiseTexture;
-        
+        InitializeCells();
     }
 
     // Update is called once per frame
     void Update()
     {
-        CalculateNoise();
+        
     }
 }
