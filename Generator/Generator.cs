@@ -21,19 +21,32 @@ public class Generator : MonoBehaviour
     private Color[] pixels;
     private Renderer renderer;
 
-    void InstantiateCell(float sample, float x, float y)
+
+    private float getPerlinValue(float x, float y)
+    {
+        float currentX = (originX + seed) + x / noiseTexture.width * scale;
+        float currentY = (originY + seed) + y / noiseTexture.width * scale;
+
+        return Mathf.PerlinNoise(currentX, currentY);
+    }
+
+
+    private void InstantiateCell(float sample, float x, float z)
     {
         Debug.Log(sample);
+        float y = 0;
         GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
 
-        var planeRenderer = plane.GetComponent<Renderer>();
+        Renderer planeRenderer = plane.GetComponent<Renderer>();
         planeRenderer.material.SetColor("_Color", new Color(sample, sample, sample));
-        plane.transform.position = new Vector3(x, 0, y);
+        plane.transform.position = new Vector3(x, y, z);
+
+
 
     }
 
 
-    void InitializeCells()
+    private void InitializeCells()
     {
         float y = 0.0F;
 
@@ -42,14 +55,15 @@ public class Generator : MonoBehaviour
             float x = 0.0f; 
             while (x < noiseTexture.width)
             {
-                float currentX = (originX + seed) + x / noiseTexture.width * scale;
-                float currentY = (originY + seed) + y / noiseTexture.width * scale;
-                //float sample = Mathf.PerlinNoise(currentX, currentY);
+                // Perlin noise function
+                //float sample = getPerlinValue(x,y);
+
                 float sample = Random.value;
+
                 InstantiateCell(sample, originX + x, originY + y);
                 
                 pixels[(int)y * noiseTexture.width + (int)x] = new Color(sample, sample, sample);
-                x+= (noiseTexture.width / resolution);
+                x += (noiseTexture.width / resolution);
             }
             y += (noiseTexture.height / resolution);
         }
@@ -72,6 +86,7 @@ public class Generator : MonoBehaviour
         noiseTexture = new Texture2D(width, height);
         pixels = new Color[noiseTexture.width * noiseTexture.height];
         renderer.material.mainTexture = noiseTexture;
+
         InitializeCells();
     }
 
