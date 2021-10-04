@@ -10,17 +10,54 @@ public class Cell : MonoBehaviour
     private int[] triangles;
     private Vector3 origin;
     private MeshFilter meshFilter;
-    public int sideLength = 20;
+    private PlainsBiome currentBiome;
 
+    public PlainsBiome defaultBiome;
+    public PlainsBiome[] possibleBiomes;
+    public int sideLength = 20;
     public bool renderDebug = false;
 
-    private void Start()
+    // Biomes
+    public void SetBiomes(PlainsBiome[] biomes)
     {
-        mesh = new Mesh();
-        GetComponent<MeshFilter>().mesh = mesh;
-        GenerateMesh();
+        possibleBiomes = biomes;
     }
 
+    public void ClearBiomes(int length = 0)
+    {
+        possibleBiomes = new PlainsBiome[length];
+    }
+
+    public int GetNumBiomes()
+    {
+        return possibleBiomes.Length;
+    }
+
+    public void SetBiome(int index = 0)
+    {
+        currentBiome = defaultBiome;
+
+        if (possibleBiomes.Length == 0)
+        {
+            throw new System.Exception("No biomes set. Falling back to default biome.");
+        }
+
+        if(index >= possibleBiomes.Length)
+        {
+            throw new System.Exception("Index out of range. Falling back to default biome.");
+        }
+
+        currentBiome = possibleBiomes[index];
+    }
+
+    private void RenderBiome()
+    {
+        currentBiome.SetBounds(new Vector2(sideLength, sideLength));
+        currentBiome.Render();
+    }
+
+
+    // Mesh Generation
     private void GenerateVertices()
     {
         vertices = new Vector3[(sideLength + 1) * (sideLength + 1)];
@@ -29,7 +66,7 @@ public class Cell : MonoBehaviour
         {
             for (int x = 0; x <= sideLength; x++)
             {
-                float height = Mathf.PerlinNoise(x * 0.3f, z * 0.3f) * 2.0f;
+                float height = Mathf.PerlinNoise(x * 0.1f, z * 0.1f) * 2.0f;
 
                 vertices[index] = new Vector3(x, height, z);
                 index++;
@@ -86,6 +123,7 @@ public class Cell : MonoBehaviour
         meshCollider.sharedMesh = mesh;
     }
 
+    // Utility
     private void OnDrawGizmos() {
         if (vertices == null)
         {
@@ -99,5 +137,14 @@ public class Cell : MonoBehaviour
                 Gizmos.DrawSphere(vertices[i], 0.1f);
             }
         }
+    }
+
+    private void Start()
+    {
+        mesh = new Mesh();
+        GetComponent<MeshFilter>().mesh = mesh;
+        GenerateMesh();
+        SetBiome();
+        RenderBiome();
     }
 }
