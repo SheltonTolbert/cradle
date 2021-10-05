@@ -11,12 +11,27 @@ public class Cell : MonoBehaviour
     private Vector3 origin;
     private MeshFilter meshFilter;
     private PlainsBiome currentBiome;
+    private Color debugColor = Color.gray;
+    private Renderer meshRenderer;
 
     public PlainsBiome defaultBiome;
     public PlainsBiome[] possibleBiomes;
     public int sideLength = 20;
     public bool renderDebug = false;
 
+
+    // Getters + Setters 
+
+    public void SetSize(int biomeSize)
+    {
+        sideLength = biomeSize;
+    }
+    
+    public void SetDebugColor(Color color)
+    {
+        debugColor = color;
+    }
+    
     // Biomes
     public void SetBiomes(PlainsBiome[] biomes)
     {
@@ -54,6 +69,9 @@ public class Cell : MonoBehaviour
     {
         currentBiome.SetBounds(new Vector2(sideLength, sideLength));
         currentBiome.Render();
+        // Render Debug Color
+        Renderer meshRenderer = GetComponent<Renderer>();
+        meshRenderer.material.SetColor("_Color", debugColor);
     }
 
 

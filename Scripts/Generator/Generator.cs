@@ -19,8 +19,9 @@ public class Generator : MonoBehaviour
 
     private Texture2D noiseTexture;
     private Color[] pixels;
-    private Renderer renderer;
-
+    private Renderer meshRenderer;
+    public Cell cell;
+    private Cell[] cells;
 
     private float getPerlinValue(float x, float y)
     {
@@ -40,35 +41,43 @@ public class Generator : MonoBehaviour
         Renderer planeRenderer = plane.GetComponent<Renderer>();
         planeRenderer.material.SetColor("_Color", new Color(sample, sample, sample));
         plane.transform.position = new Vector3(x, y, z);
-
-
-
     }
 
 
     private void InitializeCells()
     {
-        float y = 0.0F;
-
-        while (y < noiseTexture.height)
+        cells = new Cell[9];
+        
+        for (int i = 0; i < cells.Length; i++)
         {
-            float x = 0.0f; 
-            while (x < noiseTexture.width)
-            {
-                // Perlin noise function
-                //float sample = getPerlinValue(x,y);
-
-                float sample = Random.value;
-
-                InstantiateCell(sample, originX + x, originY + y);
-                
-                pixels[(int)y * noiseTexture.width + (int)x] = new Color(sample, sample, sample);
-                x += (noiseTexture.width / resolution);
-            }
-            y += (noiseTexture.height / resolution);
+            cells[i] = Instantiate(cell, new Vector3(0,0,0), Quaternion.identity);
+            cells[i].SetSize(width);
         }
-        noiseTexture.SetPixels(pixels);
-        noiseTexture.Apply();
+
+        cells[1].transform.Translate(width, 0, 0);
+        cells[1].SetDebugColor(Color.red);
+
+        cells[2].transform.Translate(width * 2, 0, 0);
+        cells[2].SetDebugColor(Color.blue);
+
+        cells[3].transform.Translate(0 , 0, width);
+        cells[3].SetDebugColor(Color.green);
+
+        cells[4].transform.Translate(width, 0, width);
+        cells[4].SetDebugColor(Color.cyan);
+
+        cells[5].transform.Translate(width * 2, 0, width);
+        cells[5].SetDebugColor(Color.yellow);
+
+        cells[6].transform.Translate(0, 0, width * 2);
+        cells[6].SetDebugColor(Color.magenta);
+
+        cells[7].transform.Translate(width, 0, width * 2);
+        cells[7].SetDebugColor(Color.grey);
+
+        cells[8].transform.Translate(width * 2, 0, width * 2);
+        cells[8].SetDebugColor(Color.red);
+
     }
 
     // Start is called before the first frame update
@@ -81,11 +90,11 @@ public class Generator : MonoBehaviour
 
         Random.InitState(seed);
 
-        renderer = GetComponent<Renderer>();
+        meshRenderer = GetComponent<Renderer>();
 
         noiseTexture = new Texture2D(width, height);
         pixels = new Color[noiseTexture.width * noiseTexture.height];
-        renderer.material.mainTexture = noiseTexture;
+        meshRenderer.material.mainTexture = noiseTexture;
 
         InitializeCells();
     }
