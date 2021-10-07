@@ -13,6 +13,7 @@ public class Cell : MonoBehaviour
     private PlainsBiome currentBiome;
     private Color debugColor = Color.gray;
     private Renderer meshRenderer;
+    private Vector3 cellOrigin;
 
     public PlainsBiome defaultBiome;
     public PlainsBiome[] possibleBiomes;
@@ -27,11 +28,11 @@ public class Cell : MonoBehaviour
         sideLength = biomeSize;
     }
     
-    public void SetDebugColor(Color color)
+    public void SetOrigin(Vector3 origin)
     {
-        debugColor = color;
+        cellOrigin = origin;
     }
-    
+
     // Biomes
     public void SetBiomes(PlainsBiome[] biomes)
     {
@@ -65,7 +66,7 @@ public class Cell : MonoBehaviour
         currentBiome = possibleBiomes[index];
     }
 
-    private void RenderBiome()
+    public void RenderBiome()
     {
         currentBiome.SetBounds(new Vector2(sideLength, sideLength));
         currentBiome.Render();
@@ -84,9 +85,9 @@ public class Cell : MonoBehaviour
         {
             for (int x = 0; x <= sideLength; x++)
             {
-                float height = Mathf.PerlinNoise(x * 0.1f, z * 0.1f) * 2.0f;
+                float height = Mathf.PerlinNoise((x + cellOrigin.x) * 0.1f, (z + cellOrigin.z) * 0.1f) * 2.0f;
 
-                vertices[index] = new Vector3(x, height, z);
+                vertices[index] = new Vector3(x + cellOrigin.x, height + cellOrigin.y, z + cellOrigin.z);
                 index++;
             }
         }
@@ -123,6 +124,8 @@ public class Cell : MonoBehaviour
 
     public void GenerateMesh()
     {
+        mesh = new Mesh();
+        GetComponent<MeshFilter>().mesh = mesh;
         GenerateVertices();
         CalculateTriangles();
         UpdateMesh();
@@ -157,12 +160,13 @@ public class Cell : MonoBehaviour
         }
     }
 
+    public void SetDebugColor(Color color)
+    {
+        debugColor = color;
+    }
+
     private void Start()
     {
-        mesh = new Mesh();
-        GetComponent<MeshFilter>().mesh = mesh;
-        GenerateMesh();
-        SetBiome();
-        RenderBiome();
+
     }
 }
