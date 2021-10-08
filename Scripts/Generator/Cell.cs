@@ -69,6 +69,7 @@ public class Cell : MonoBehaviour
     public void RenderBiome()
     {
         currentBiome.SetBounds(new Vector2(sideLength, sideLength));
+        currentBiome.setOrigin(cellOrigin);
         currentBiome.Render();
         // Render Debug Color
         Renderer meshRenderer = GetComponent<Renderer>();

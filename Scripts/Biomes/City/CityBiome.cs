@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlainsBiome : MonoBehaviour
+public class CityBiome : MonoBehaviour
 {
+
     public GameObject[] structures;
     public int numStructures;
 
@@ -50,12 +51,12 @@ public class PlainsBiome : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

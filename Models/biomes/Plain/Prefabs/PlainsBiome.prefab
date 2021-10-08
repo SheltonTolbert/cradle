@@ -45,4 +45,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   structures:
   - {fileID: 2335819788969775211, guid: baef089b4072c14478c0492f6bb55902, type: 3}
-  numStructures: 0
+  numStructures: 20
