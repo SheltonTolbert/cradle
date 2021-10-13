@@ -111,5 +111,6 @@ MonoBehaviour:
     type: 3}
   possibleBiomes:
   - {fileID: 1599878921619514181, guid: 7fe9335f99f5e3b47b80b118d6adb8f4, type: 3}
+  - {fileID: 586283635874252927, guid: 3a44903e3d974154e9aef179d579f746, type: 3}
   sideLength: 100
   renderDebug: 0

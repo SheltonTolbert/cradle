@@ -10,38 +10,39 @@ public class Cell : MonoBehaviour
     private int[] triangles;
     private Vector3 origin;
     private MeshFilter meshFilter;
-    private PlainsBiome currentBiome;
+    private Biome currentBiome;
     private Color debugColor = Color.gray;
     private Renderer meshRenderer;
-    private Vector3 cellOrigin;
+    private float scale = 1.0f;
 
-    public PlainsBiome defaultBiome;
-    public PlainsBiome[] possibleBiomes;
+    public Biome defaultBiome;
+    public Biome[] possibleBiomes;
     public int sideLength = 20;
     public bool renderDebug = false;
 
+    public int currentBiomeIndex = -1;
 
     // Getters + Setters 
-
-    public void SetSize(int biomeSize)
+    public void SetSize(int biomeSize, float Scale)
     {
         sideLength = biomeSize;
+        scale = Scale;
     }
     
     public void SetOrigin(Vector3 origin)
     {
-        cellOrigin = origin;
+        transform.position = origin;
     }
 
     // Biomes
-    public void SetBiomes(PlainsBiome[] biomes)
+    public void SetBiomes(Biome[] biomes)
     {
         possibleBiomes = biomes;
     }
 
     public void ClearBiomes(int length = 0)
     {
-        possibleBiomes = new PlainsBiome[length];
+        possibleBiomes = new Biome[length];
     }
 
     public int GetNumBiomes()
@@ -51,6 +52,15 @@ public class Cell : MonoBehaviour
 
     public void SetBiome(int index = 0)
     {
+        if (index == 0)
+        {
+            currentBiomeIndex = Random.Range(0, possibleBiomes.Length);
+        } else
+        {
+            currentBiomeIndex = index;
+        }
+
+
         currentBiome = defaultBiome;
 
         if (possibleBiomes.Length == 0)
@@ -58,18 +68,18 @@ public class Cell : MonoBehaviour
             throw new System.Exception("No biomes set. Falling back to default biome.");
         }
 
-        if(index >= possibleBiomes.Length)
+        if(currentBiomeIndex >= possibleBiomes.Length)
         {
             throw new System.Exception("Index out of range. Falling back to default biome.");
         }
 
-        currentBiome = possibleBiomes[index];
+        currentBiome = possibleBiomes[currentBiomeIndex];
     }
 
     public void RenderBiome()
     {
-        currentBiome.SetBounds(new Vector2(sideLength, sideLength));
-        currentBiome.setOrigin(cellOrigin);
+        currentBiome.SetBounds(new Vector2(sideLength * scale, sideLength * scale));
+        currentBiome.SetOrigin(transform.position);
         currentBiome.Render();
         // Render Debug Color
         Renderer meshRenderer = GetComponent<Renderer>();
@@ -82,13 +92,16 @@ public class Cell : MonoBehaviour
     {
         vertices = new Vector3[(sideLength + 1) * (sideLength + 1)];
 
-        for (int index = 0, z = 0; z <= sideLength; z++)
-        {
-            for (int x = 0; x <= sideLength; x++)
-            {
-                float height = Mathf.PerlinNoise((x + cellOrigin.x) * 0.1f, (z + cellOrigin.z) * 0.1f) * 2.0f;
+        int index = 0;
 
-                vertices[index] = new Vector3(x + cellOrigin.x, height + cellOrigin.y, z + cellOrigin.z);
+        for (float z = 0; z <= sideLength; z++)
+        {
+            for (float x = 0; x <= sideLength; x++)
+            {
+                // TODO implement noise height
+                //float height = Mathf.PerlinNoise((x + transform.position.x) * 0.1f, (z + transform.position.z) * 0.1f) * 2.0f;
+
+                vertices[index] = new Vector3(x * scale, 0, z * scale);
                 index++;
             }
         }

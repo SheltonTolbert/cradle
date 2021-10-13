@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlainsBiome : MonoBehaviour
+public class PlainsBiome : Biome
 {
     public GameObject[] structures;
     public int numStructures;
@@ -10,12 +10,12 @@ public class PlainsBiome : MonoBehaviour
     private Vector2 bounds;
     private Vector3 biomeOrigin;
 
-    public void SetBounds(Vector2 cellBounds)
+    public override void SetBounds(Vector2 cellBounds)
     {
         bounds = cellBounds;
     }
 
-    public void setOrigin(Vector3 origin)
+    public override void SetOrigin(Vector3 origin)
     {
         biomeOrigin = origin;
     }
@@ -43,14 +43,14 @@ public class PlainsBiome : MonoBehaviour
         }
     }
 
-    public void Render()
+    public override void Render()
     {
         GenerateStructures();
     }
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame

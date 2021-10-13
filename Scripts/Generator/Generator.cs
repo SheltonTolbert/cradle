@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class Generator : MonoBehaviour
 {
-    [Range(0, 100)] public float pointDensity;
-    public int width = 100;
-    public int height = 100;
+    [Range(0, 10)] public float scale = 1;
+    private int width = 100;
+    private int height = 100;
+
 
     public int seed = 0;
 
-    public float scale = 1;
+    public float noiseScale = 1;
 
     public float originX;
     public float originY;
 
     public int resolution = 10;
+    public bool regenerate = false;
 
     private Texture2D noiseTexture;
     private Color[] pixels;
@@ -25,8 +27,8 @@ public class Generator : MonoBehaviour
 
     private float getPerlinValue(float x, float y)
     {
-        float currentX = (originX + seed) + x / noiseTexture.width * scale;
-        float currentY = (originY + seed) + y / noiseTexture.width * scale;
+        float currentX = (originX + seed) + x / noiseTexture.width * noiseScale;
+        float currentY = (originY + seed) + y / noiseTexture.width * noiseScale;
 
         return Mathf.PerlinNoise(currentX, currentY);
     }
@@ -68,9 +70,9 @@ public class Generator : MonoBehaviour
         {
             for (int x = 0; x < gridCellsWidth; x++)
             {
-                cells[i] = Instantiate(cell, new Vector3(0, 0, 0), Quaternion.identity);
-                cells[i].SetSize(width);
-                cells[i].SetOrigin(new Vector3(width * x, 0 ,width * z));
+                cells[i] = Instantiate(cell, new Vector3(0, 0, 0), Quaternion.identity, transform);
+                cells[i].SetSize(width, scale);
+                cells[i].SetOrigin(new Vector3(width * x * scale, 0 ,height * z * scale));
                 cells[i].GenerateMesh();
                 cells[i].SetBiome();
                 cells[i].SetDebugColor(cellColors[i]);
@@ -102,6 +104,10 @@ public class Generator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if( regenerate)
+        {
+            regenerate = false;
+            Start();
+        }
     }
 }

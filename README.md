@@ -1,3 +1,9 @@
+# TODO
+ - [ ] fix noise height by moving to biome specific function
+
+
+
+
 # Ideas 
 
 ## Biomes

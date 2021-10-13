@@ -45,6 +45,10 @@ public class SkyScraper : MonoBehaviour
 
     void Start()
     {
+        if (numMiddleFloors == 0)
+        {
+            numMiddleFloors = Random.Range(1, 100);
+        }
         GenerateStructure();
     }
 

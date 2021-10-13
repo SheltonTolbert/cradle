@@ -247,7 +247,7 @@ namespace Invector.vCharacterController
             }
             // apply extra force to the jump height   
             var vel = _rigidbody.velocity;
-            vel.y = jumpHeight;
+            vel.y = jumpHeight * 10;
             _rigidbody.velocity = vel;
         }
 
@@ -394,9 +394,9 @@ namespace Invector.vCharacterController
             [Tooltip("Speed to Walk using rigidbody or extra speed if you're using RootMotion")]
             public float walkSpeed = 2f;
             [Tooltip("Speed to Run using rigidbody or extra speed if you're using RootMotion")]
-            public float runningSpeed = 4f;
+            public float runningSpeed = 20f;
             [Tooltip("Speed to Sprint using rigidbody or extra speed if you're using RootMotion")]
-            public float sprintSpeed = 6f;
+            public float sprintSpeed = 60f;
         }
     }
 }

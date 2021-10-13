@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2532507400334153459
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2532507400334153461}
+  - component: {fileID: 2532507400334153460}
+  m_Layer: 0
+  m_Name: SkyScraper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2532507400334153461
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2532507400334153459}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 71.66512, y: -287.09793, z: 545.52264}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2532507400334153460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2532507400334153459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 181bd8fb94c32bb488b10d275684196d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstFloors:
+  - {fileID: 2887444370915726136, guid: 1ca248db3db98244b9c80bc5d519475b, type: 3}
+  roofs:
+  - {fileID: 6033236971690825270, guid: 014a01fb2b74bff4c91158c178bc6da4, type: 3}
+  middleFloors:
+  - {fileID: 5609841166753905634, guid: 37ce07aeee1fd7d4083c2d88c9ce1980, type: 3}
+  - {fileID: 8305676107367268779, guid: ba34465a5d564384ca7a16eb4bd26059, type: 3}
+  numMiddleFloors: 0
+  regenerate: 0
+  floorOffset: 10
