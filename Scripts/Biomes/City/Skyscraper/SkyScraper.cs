@@ -9,10 +9,11 @@ public class SkyScraper : MonoBehaviour
     public GameObject[] roofs;
     public GameObject[] middleFloors;
     public int numMiddleFloors = 1;
+    public int maxNumMiddleFloors = 10;
 
     public bool regenerate = false;
     public float floorOffset = 1.0f;
-
+    public bool randomizeNumberOfFloors = false;
     void GenerateStructure()
     {
         int roofIndex = Random.Range(0, roofs.Length);
@@ -45,9 +46,9 @@ public class SkyScraper : MonoBehaviour
 
     void Start()
     {
-        if (numMiddleFloors == 0)
+        if (randomizeNumberOfFloors)
         {
-            numMiddleFloors = Random.Range(1, 100);
+            numMiddleFloors = Random.Range(1, maxNumMiddleFloors);
         }
         GenerateStructure();
     }

@@ -51,5 +51,7 @@ MonoBehaviour:
   - {fileID: 5609841166753905634, guid: 37ce07aeee1fd7d4083c2d88c9ce1980, type: 3}
   - {fileID: 8305676107367268779, guid: ba34465a5d564384ca7a16eb4bd26059, type: 3}
   numMiddleFloors: 0
+  maxNumMiddleFloors: 10
   regenerate: 0
   floorOffset: 10
+  randomizeNumberOfFloors: 1
