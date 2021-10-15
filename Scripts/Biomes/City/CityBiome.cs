@@ -49,22 +49,17 @@ public class CityBiome : Biome
     {
         
         int streetWidth = 100;
-        float blockWidth = (bounds.x - (numStreetsY * streetWidth)) / (numStreetsY + 1);
+        float blockWidth = (60);
         float blockHeight = (bounds.y - (numStreetsX * streetWidth)) / (numStreetsX + 1);
 
         for (float z = 0; z < (bounds.y - blockHeight); z += blockHeight + streetWidth)
         {
-            for (float x = 0; x < (bounds.x - blockWidth); x += blockWidth + streetWidth)
+            
+            for (float x = 0; x < (bounds.x - blockWidth); x += blockWidth + (streetWidth / 2))
             {
-                
                 GenerateBlock(new Vector3(x + biomeOrigin.x, biomeOrigin.y, z + biomeOrigin.z ), blockWidth, blockHeight);
-                // 
-                // Instantiate(GetStructure(), new Vector3((blockWidth - streetWidth) + x + biomeOrigin.x, 0 + biomeOrigin.y, z + biomeOrigin.z), Quaternion.identity);
-                // Instantiate(GetStructure(), new Vector3(x + biomeOrigin.x, 0 + biomeOrigin.y, (blockHeight - streetWidth) + z + biomeOrigin.z), Quaternion.identity);
-                // Instantiate(GetStructure(), new Vector3((blockWidth - streetWidth) + x + biomeOrigin.x, 0 + biomeOrigin.y, (blockHeight - streetWidth) + z + biomeOrigin.z), Quaternion.identity);
             }
         }
-
     }
 
     private void GenerateStructures()

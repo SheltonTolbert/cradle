@@ -1,8 +1,7 @@
 # TODO
  - [ ] fix noise height by moving to biome specific function
-
-
-
+ - [ ] add terrain texturing at biome level
+ - [ ] implement 'soft edges' for blending between biomes
 
 # Ideas 
 
@@ -13,4 +12,4 @@
 
 ## Creatures
 
-- [] A massive dosile creature with a handler that is in charge of keeping the creatire dosile. If the player defeats the handler, the creature becomes increadlibly aggressive and extremely difficult to defeat. 
+- [] A massive dosile creature with a handler that is in charge of keeping the creature. If the player defeats the handler, the creature becomes increadlibly aggressive and extremely difficult to defeat. 
