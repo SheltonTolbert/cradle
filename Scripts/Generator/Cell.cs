@@ -50,9 +50,9 @@ public class Cell : MonoBehaviour
         return possibleBiomes.Length;
     }
 
-    public void SetBiome(int index = 0)
+    public void SetBiome(int index)
     {
-        if (index == 0)
+        if (index == -1)
         {
             currentBiomeIndex = Random.Range(0, possibleBiomes.Length);
         } else

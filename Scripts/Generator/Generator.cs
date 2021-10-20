@@ -4,26 +4,32 @@ using UnityEngine;
 
 public class Generator : MonoBehaviour
 {
+
     [Range(0, 10)] public float scale = 1;
-    private int width = 100;
-    private int height = 100;
 
-
-    public int seed = 0;
-
+    public Cell cell;
+    public bool regenerate = false;
+    public bool soloCell = false;
     public float noiseScale = 1;
-
     public float originX;
     public float originY;
-
+    public int biomeIndex = -1;
     public int resolution = 10;
-    public bool regenerate = false;
+    public int seed = 0;
 
-    private Texture2D noiseTexture;
+    private Cell[] cells;
     private Color[] pixels;
     private Renderer meshRenderer;
-    public Cell cell;
-    private Cell[] cells;
+    private Texture2D noiseTexture;
+    private int height = 100;
+    private int width = 100;
+
+
+    /* @docs 
+    private float getPerlinValue(float x, float y)
+
+    Returns a coherent noise value between 0 and 1 based on the origin, seed and noise scale of the generator
+    */
 
     private float getPerlinValue(float x, float y)
     {
@@ -33,10 +39,15 @@ public class Generator : MonoBehaviour
         return Mathf.PerlinNoise(currentX, currentY);
     }
 
+    /* @docs 
+    private void InstantiateCell(float sample, float x, float z)
+
+    Doesn't do anything at the moment
+    */
 
     private void InstantiateCell(float sample, float x, float z)
     {
-        Debug.Log(sample);
+        
         float y = 0;
         GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
 
@@ -50,6 +61,15 @@ public class Generator : MonoBehaviour
     {
         int gridCellsWidth = 3;
         int gridCellsHeight = 3;
+
+        if (soloCell)
+        {
+            gridCellsHeight = 1;
+            gridCellsWidth = 1;
+        } else {
+        // Biomes should not be specified in grid view
+            biomeIndex = -1;
+        }
 
         cells = new Cell[gridCellsHeight * gridCellsWidth];
         Color[] cellColors = new Color[9]
@@ -72,9 +92,9 @@ public class Generator : MonoBehaviour
             {
                 cells[i] = Instantiate(cell, new Vector3(0, 0, 0), Quaternion.identity, transform);
                 cells[i].SetSize(width, scale);
-                cells[i].SetOrigin(new Vector3(width * x * scale, 0 ,height * z * scale));
+                cells[i].SetOrigin(new Vector3(width * x * scale, 0, height * z * scale));
                 cells[i].GenerateMesh();
-                cells[i].SetBiome();
+                cells[i].SetBiome(biomeIndex);
                 cells[i].SetDebugColor(cellColors[i]);
                 cells[i].RenderBiome();
                 i++;
@@ -89,7 +109,6 @@ public class Generator : MonoBehaviour
         {
             seed = Random.Range(0, 9999);
         }
-
         Random.InitState(seed);
 
         meshRenderer = GetComponent<Renderer>();
@@ -104,7 +123,7 @@ public class Generator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if( regenerate)
+        if (regenerate)
         {
             regenerate = false;
             Start();

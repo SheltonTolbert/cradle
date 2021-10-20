@@ -57,6 +57,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -81,6 +82,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!64 &490593879439787382
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -107,12 +109,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c3a02cccf070aa4e8a17bd582b677cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointDensity: 0
-  width: 100
-  height: 100
-  seed: 1
-  scale: 1
+  scale: 10
+  cell: {fileID: 7042754647089279591, guid: 8d0636f1d0a2b7c43a9a03be1e7f5f01, type: 3}
+  regenerate: 0
+  soloCell: 0
+  noiseScale: 1
   originX: 0
   originY: 0
+  biomeIndex: 0
   resolution: 5
-  cell: {fileID: 7042754647089279591, guid: 8d0636f1d0a2b7c43a9a03be1e7f5f01, type: 3}
+  seed: 1
