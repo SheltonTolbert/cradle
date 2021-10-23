@@ -36,7 +36,7 @@ def generateDocs(paths):
             if '*/' in line:
                 docString = docString + '\n'
                 readingDocString = False
-        output += (docString.replace('*/','').replace('/*','').replace('@docs', ''))
+        output += (docString.replace('*/','').replace('/*','').replace('@docs', '').replace('    ',''))
     return output
 
 
@@ -50,8 +50,8 @@ def writeToFile(docs,destinationPath):
 
 def main():
     print('Generating Docs...')
-    output = generateDocs(getFiles('../Cradle/Assets/Scripts/'))
-    writeToFile(output, '../Cradle/Assets/Docs/docs.md')
+    output = generateDocs(getFiles('../Assets/Scripts/'))
+    writeToFile(output, '../Assets/Docs/docs.md')
     
 if __name__ == '__main__':
     main()
