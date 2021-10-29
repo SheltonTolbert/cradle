@@ -74,6 +74,7 @@ public class Generator : MonoBehaviour
         }
 
         cells = new Cell[gridCellsHeight * gridCellsWidth];
+
         Color[] cellColors = new Color[9]
         {
             Color.red,
@@ -106,8 +107,7 @@ public class Generator : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void InitializeData()
     {
         if (seed == 0)
         {
@@ -120,7 +120,12 @@ public class Generator : MonoBehaviour
         noiseTexture = new Texture2D(width, height);
         pixels = new Color[noiseTexture.width * noiseTexture.height];
         meshRenderer.material.mainTexture = noiseTexture;
+    }
 
+    // Start is called before the first frame update
+    void Start()
+    {
+        InitializeData();
         InitializeCells();
     }
 
