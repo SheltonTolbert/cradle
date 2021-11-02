@@ -23,24 +23,38 @@ public class Generator : MonoBehaviour
     private Texture2D noiseTexture;
     private int height = 100;
     private int width = 100;
+    private int gridCellsHigh = 3;
+    private int gridCellsWide = 3;
 
 
     /* @docs 
-    ## private float getPerlinValue(float x, float y)
+    ## public float getPerlinValue(float x, float y)
 
     Returns a coherent noise value between 0 and 1 based on the origin, seed and noise scale of the generator
     */
 
-    private float getPerlinValue(float x, float y)
+    public float GetPerlinValue(float x, float y)
     {
-        float currentX = (originX + seed) + x / noiseTexture.width * noiseScale;
-        float currentY = (originY + seed) + y / noiseTexture.width * noiseScale;
+        float currentX = (originX + (float)seed) + x;
+        float currentY = (originY + (float)seed) + y;
 
         return Mathf.PerlinNoise(currentX, currentY);
     }
 
+    /* @docs
+    ## public (int,int) GetDimensions()
+
+    returns a tuple with the demensions of the grid
+    */
+    public (int, int) GetDimensions()
+    {
+        (int gridWidth, int gridHeight) gridDimensions = (gridCellsWide * width, gridCellsHigh * height);
+
+        return gridDimensions;
+    }
+
     /* @docs 
-    private void InstantiateCell(float sample, float x, float z)
+    ##private void InstantiateCell(float sample, float x, float z)
 
     Doesn't do anything at the moment. This is a test of the pre-commit hook
     */
@@ -59,13 +73,10 @@ public class Generator : MonoBehaviour
 
     private void InitializeCells()
     {
-        int gridCellsWidth = 3;
-        int gridCellsHeight = 3;
-
         if (soloCell)
         {
-            gridCellsHeight = 1;
-            gridCellsWidth = 1;
+            gridCellsHigh = 1;
+            gridCellsWide = 1;
         }
         else
         {
@@ -73,7 +84,7 @@ public class Generator : MonoBehaviour
             biomeIndex = -1;
         }
 
-        cells = new Cell[gridCellsHeight * gridCellsWidth];
+        cells = new Cell[gridCellsHigh * gridCellsWide];
 
         Color[] cellColors = new Color[9]
         {
@@ -89,9 +100,9 @@ public class Generator : MonoBehaviour
         };
 
         int i = 0;
-        for (int z = 0; z < gridCellsHeight; z++)
+        for (int z = 0; z < gridCellsHigh; z++)
         {
-            for (int x = 0; x < gridCellsWidth; x++)
+            for (int x = 0; x < gridCellsWide; x++)
             {
                 cells[i] = Instantiate(cell, new Vector3(0, 0, 0), Quaternion.identity, transform);
                 cells[i].transform.parent = transform;

@@ -33,6 +33,8 @@ public class TestRunner : MonoBehaviour
             Debug.Log($"All {passedTests + failedTests} tests passed.");
         }
 
+        passedTests = 0;
+        failedTests = 0;
     }
 
 

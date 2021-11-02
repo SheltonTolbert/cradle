@@ -51,22 +51,29 @@ public class Resolver
         stringVal = String;
     }
 
+
+    private void Reset()
+    {
+        mode = MODES.NULL;
+    }
+
     public void toEq(bool _comparitor)
     {
         if (boolVal == _comparitor)
         {
             testRunner.Pass();
         }
-        if (mode != MODES.BOOLEAN)
+        else if (mode != MODES.BOOLEAN)
         {
             Debug.LogError($"{context} FAILED:Expected {mode}, got boolean");
             testRunner.Fail();
         }
-        if (boolVal != _comparitor)
+        else if (boolVal != _comparitor)
         {
             Debug.LogError($"{context} FAILED:Expected {boolVal} to equal {_comparitor}");
             testRunner.Fail();
         }
+        Reset();
     }
 
     public void toEq(string _comparitor)
@@ -75,16 +82,17 @@ public class Resolver
         {
             testRunner.Pass();
         }
-        if (mode != MODES.STRING)
+        else if (mode != MODES.STRING)
         {
             Debug.LogError($"{context} FAILED:Expected {mode}, got string");
             testRunner.Fail();
         }
-        if (stringVal != _comparitor)
+        else if (stringVal != _comparitor)
         {
             Debug.LogError($"{context} FAILED:Expected {stringVal} to equal {_comparitor}");
             testRunner.Fail();
         }
+        Reset();
     }
 
     public void toEq(int _comparitor)
@@ -93,16 +101,17 @@ public class Resolver
         {
             testRunner.Pass();
         }
-        if (mode != MODES.INTEGER)
+        else if (mode != MODES.INTEGER)
         {
             Debug.LogError($"{context} FAILED:Expected {mode}, got int");
             testRunner.Fail();
         }
-        if (intVal != _comparitor)
+        else if (intVal != _comparitor)
         {
             Debug.LogError($"{context} FAILED:Expected {intVal} to equal {_comparitor}");
             testRunner.Fail();
         }
+        Reset();
     }
 
     public void toEq(float _comparitor)
@@ -111,16 +120,17 @@ public class Resolver
         {
             testRunner.Pass();
         }
-        if (mode != MODES.INTEGER)
+        else if (mode != MODES.FLOAT)
         {
             Debug.LogError($"{context} FAILED:Expected {mode}, got float");
             testRunner.Fail();
         }
-        if (floatVal != _comparitor)
+        else if (floatVal != _comparitor)
         {
             Debug.LogError($"{context} FAILED:Expected {floatVal} to equal {_comparitor}");
             testRunner.Fail();
         }
+        Reset();
     }
 
 
@@ -131,16 +141,17 @@ public class Resolver
         {
             testRunner.Pass();
         }
-        if (mode != MODES.BOOLEAN)
+        else if (mode != MODES.BOOLEAN)
         {
             Debug.LogError($"{context} FAILED:Expected {mode}, got boolean");
             testRunner.Fail();
         }
-        if (boolVal == _comparitor)
+        else if (boolVal == _comparitor)
         {
             Debug.LogError($"{context} FAILED:Expected {boolVal} to equal {_comparitor}");
             testRunner.Fail();
         }
+        Reset();
     }
 
     public void toNotEq(string _comparitor)
@@ -149,16 +160,17 @@ public class Resolver
         {
             testRunner.Pass();
         }
-        if (mode != MODES.STRING)
+        else if (mode != MODES.STRING)
         {
             Debug.LogError($"{context} FAILED:Expected {mode}, got string");
             testRunner.Fail();
         }
-        if (stringVal == _comparitor)
+        else if (stringVal == _comparitor)
         {
             Debug.LogError($"{context} FAILED:Expected {stringVal} to equal {_comparitor}");
             testRunner.Fail();
         }
+        Reset();
     }
 
     public void toNotEq(int _comparitor)
@@ -167,16 +179,17 @@ public class Resolver
         {
             testRunner.Pass();
         }
-        if (mode != MODES.INTEGER)
+        else if (mode != MODES.INTEGER)
         {
             Debug.LogError($"{context} FAILED:Expected {mode}, got int");
             testRunner.Fail();
         }
-        if (intVal == _comparitor)
+        else if (intVal == _comparitor)
         {
             Debug.LogError($"{context} FAILED:Expected {intVal} to equal {_comparitor}");
             testRunner.Fail();
         }
+        Reset();
     }
 
     public void toNotEq(float _comparitor)
@@ -185,16 +198,17 @@ public class Resolver
         {
             testRunner.Pass();
         }
-        if (mode != MODES.INTEGER)
+        else if (mode != MODES.FLOAT)
         {
             Debug.LogError($"{context} FAILED:Expected {mode}, got float");
             testRunner.Fail();
         }
-        if (floatVal == _comparitor)
+        else if (floatVal == _comparitor)
         {
             Debug.LogError($"{context} FAILED:Expected {floatVal} to equal {_comparitor}");
             testRunner.Fail();
         }
+        Reset();
     }
 
 }
