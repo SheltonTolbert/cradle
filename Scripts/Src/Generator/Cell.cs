@@ -50,6 +50,21 @@ public class Cell : MonoBehaviour
         return possibleBiomes.Length;
     }
 
+    public Biome[] GetBiomes()
+    {
+        return possibleBiomes;
+    }
+
+    public Biome GetBiome()
+    {
+        return currentBiome;
+    }
+
+    public Vector3 GetBounds()
+    {
+        return gameObject.GetComponent<Renderer>().bounds.size;
+    }
+
     public void SetBiome(int index)
     {
         if (index == -1)
@@ -68,13 +83,20 @@ public class Cell : MonoBehaviour
         {
             throw new System.Exception("No biomes set. Falling back to default biome.");
         }
-
-        if (currentBiomeIndex >= possibleBiomes.Length)
+        else if (currentBiomeIndex >= possibleBiomes.Length)
         {
             throw new System.Exception("Index out of range. Falling back to default biome.");
         }
+        else
+        {
+            currentBiome = possibleBiomes[currentBiomeIndex];
+        }
 
-        currentBiome = possibleBiomes[currentBiomeIndex];
+    }
+
+    public void SetBiome(Biome biome)
+    {
+        currentBiome = biome;
     }
 
     public void RenderBiome()
@@ -180,10 +202,5 @@ public class Cell : MonoBehaviour
     public void SetDebugColor(Color color)
     {
         debugColor = color;
-    }
-
-    private void Start()
-    {
-
     }
 }

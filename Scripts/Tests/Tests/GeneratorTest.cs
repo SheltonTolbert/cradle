@@ -7,7 +7,7 @@ using UnityEngine;
 public class GeneratorTest
 {
     GameObject context;
-    Assert assertion;
+    Assert assert;
     Generator generator;
 
     public void SetContext(GameObject parent)
@@ -17,10 +17,11 @@ public class GeneratorTest
 
     public void Run()
     {
-        assertion = new Assert("Generator Test");
+        assert = new Assert("Generator Test");
         generator = (Generator)context.GetComponent(typeof(Generator));
 
         Debug.Log("Running Generator tests");
+
         VerifyCellCount();
         VerifyPerlinValue();
         GeneratorInitializedWithCorrectProperties();
@@ -28,7 +29,7 @@ public class GeneratorTest
 
     private void VerifyCellCount()
     {
-        assertion.expect(context.transform.childCount).toEq(9);
+        assert.expect(context.transform.childCount).toEq(9);
     }
 
     private void VerifyPerlinValue()
@@ -39,8 +40,8 @@ public class GeneratorTest
         float noiseValue = Mathf.Round(generator.GetPerlinValue(x, y) * 100f) / 100f;
         int defaultSeed = 1;
 
-        assertion.expect(generator.seed).toEq(defaultSeed);
-        assertion.expect(noiseValue).toEq(0.47f);
+        assert.expect(generator.seed).toEq(defaultSeed);
+        assert.expect(noiseValue).toEq(0.47f);
     }
 
     private void GeneratorInitializedWithCorrectProperties()
@@ -48,8 +49,7 @@ public class GeneratorTest
         (int gridWidth, int gridHeight) = generator.GetDimensions();
         (int expectedWidth, int expectedHeight) = (300, 300);
 
-        assertion.expect(gridWidth).toEq(expectedWidth);
-        assertion.expect(gridHeight).toEq(expectedHeight);
+        assert.expect(gridWidth).toEq(expectedWidth);
+        assert.expect(gridHeight).toEq(expectedHeight);
     }
-
 }

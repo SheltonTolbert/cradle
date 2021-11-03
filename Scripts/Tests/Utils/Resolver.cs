@@ -6,6 +6,7 @@ public class Resolver
     private float floatVal;
     private string stringVal;
     private bool boolVal;
+    private Vector3 vector3Val;
     private string context;
     private TestRunner testRunner = GameObject.Find("TestRunner").GetComponent<TestRunner>();
 
@@ -15,6 +16,7 @@ public class Resolver
         FLOAT,
         INTEGER,
         STRING,
+        VECTOR3,
         NULL
     }
 
@@ -49,6 +51,13 @@ public class Resolver
         context = currentContext;
         mode = MODES.STRING;
         stringVal = String;
+    }
+
+    public Resolver(Vector3 vec3, string currentContext)
+    {
+        context = currentContext;
+        mode = MODES.VECTOR3;
+        vector3Val = vec3;
     }
 
 
@@ -133,6 +142,25 @@ public class Resolver
         Reset();
     }
 
+    public void toEq(Vector3 _comparitor)
+    {
+        if (vector3Val == _comparitor)
+        {
+            testRunner.Pass();
+        }
+        else if (mode != MODES.VECTOR3)
+        {
+            Debug.LogError($"{context} FAILED:Expected {mode}, got float");
+            testRunner.Fail();
+        }
+        else if (vector3Val != _comparitor)
+        {
+            Debug.LogError($"{context} FAILED:Expected {vector3Val} to equal {_comparitor}");
+            testRunner.Fail();
+        }
+        Reset();
+    }
+
 
 
     public void toNotEq(bool _comparitor)
@@ -206,6 +234,25 @@ public class Resolver
         else if (floatVal == _comparitor)
         {
             Debug.LogError($"{context} FAILED:Expected {floatVal} to equal {_comparitor}");
+            testRunner.Fail();
+        }
+        Reset();
+    }
+
+    public void toNotEq(Vector3 _comparitor)
+    {
+        if (vector3Val != _comparitor)
+        {
+            testRunner.Pass();
+        }
+        else if (mode != MODES.VECTOR3)
+        {
+            Debug.LogError($"{context} FAILED:Expected {mode}, got float");
+            testRunner.Fail();
+        }
+        else if (vector3Val == _comparitor)
+        {
+            Debug.LogError($"{context} FAILED:Expected {vector3Val} to equal {_comparitor}");
             testRunner.Fail();
         }
         Reset();

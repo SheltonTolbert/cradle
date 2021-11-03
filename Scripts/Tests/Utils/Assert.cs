@@ -27,4 +27,9 @@ public class Assert
     {
         return new Resolver(comparitor, context);
     }
+
+    public Resolver expect(Vector3 comparitor)
+    {
+        return new Resolver(comparitor, context);
+    }
 }

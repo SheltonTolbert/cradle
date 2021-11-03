@@ -133,6 +133,15 @@ public class Generator : MonoBehaviour
         meshRenderer.material.mainTexture = noiseTexture;
     }
 
+
+    public void DestroyAllChildren()
+    {
+        foreach (Transform child in transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -145,8 +154,10 @@ public class Generator : MonoBehaviour
     {
         if (regenerate)
         {
-            regenerate = false;
+            DestroyAllChildren();
             Start();
+
+            regenerate = false;
         }
     }
 }
