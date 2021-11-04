@@ -61,7 +61,6 @@ public class CityBiome : Biome
 
     private void GenerateCity()
     {
-
         int streetWidth = 100;
         float blockWidth = 60;
         float blockHeight = (bounds.y - (numStreetsX * streetWidth)) / (numStreetsX + 1);
@@ -84,16 +83,5 @@ public class CityBiome : Biome
     public override void Render()
     {
         GenerateStructures();
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        Debug.Log("rendering city biome");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

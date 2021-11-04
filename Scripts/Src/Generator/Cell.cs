@@ -2,6 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/* @docs 
+
+
+### Cell 
+
+--- 
+
+The Cell class is responsible for generating biomes.
+
+The Cell class contains the following public variables:
+
+```
+
+- Biome defaultBiome
+    - A fall back biome should the Cell encounter a runtime exception. If left empty a default empty biome will be used. 
+- Biome[] possibleBiomes
+    - An array of all possible biomes. The Cell can choose from. 
+- int sideLength
+    - A default Cell size. This is typically overwritten by the Generator but is useful  for debugging a Cell outside of a parent Generator. 
+- bool renderDebug
+    - This bool acts a toggle for rendering the Cell debug view. 
+```
+
+
+*/
+
 public class Cell : MonoBehaviour
 {
     private Mesh mesh;
@@ -20,51 +46,109 @@ public class Cell : MonoBehaviour
     public int sideLength = 20;
     public bool renderDebug = false;
 
-    public int currentBiomeIndex = -1;
+    private int currentBiomeIndex = -1;
 
     // Getters + Setters 
+
+    /* @docs
+    ## void SetSize(int size, float scale)
+
+    > Sets the initial size and scale of the cell 
+
+    */
     public void SetSize(int biomeSize, float Scale)
     {
         sideLength = biomeSize;
         scale = Scale;
     }
 
+    /* @docs
+    ## void SetOrigin(Vector3 origin)
+
+    > Sets origin of the cell 
+
+    */
     public void SetOrigin(Vector3 origin)
     {
         transform.position = origin;
     }
 
     // Biomes
+
+    /* @docs
+## void SetBiomes(Biome[] biomes)
+
+> Sets possible biomes of the cell 
+
+*/
     public void SetBiomes(Biome[] biomes)
     {
         possibleBiomes = biomes;
     }
 
+
+    /* @docs
+    ## void ClearBiomes(int length = 0)
+
+    > Clears possible biomes array 
+
+    */
     public void ClearBiomes(int length = 0)
     {
         possibleBiomes = new Biome[length];
     }
 
+    /* @docs
+    ## int GetNumBiomes()
+
+    > Returns number of biomes in possible biomes array 
+
+    */
     public int GetNumBiomes()
     {
         return possibleBiomes.Length;
     }
 
+
+    /* @docs
+    ## Biome[] GetBiomes()
+
+    > Returns the possible biomes array 
+
+    */
     public Biome[] GetBiomes()
     {
         return possibleBiomes;
     }
 
+    /* @docs
+    ## Biome GetBiome()
+
+    > Returns the active biome 
+
+    */
     public Biome GetBiome()
     {
         return currentBiome;
     }
 
+    /* @docs
+    ## Vector3 GetBounds()
+
+    > Returns the size of the Cell
+
+    */
     public Vector3 GetBounds()
     {
         return gameObject.GetComponent<Renderer>().bounds.size;
     }
 
+    /* @docs
+    ## void SetBiome(int index)
+
+    > Sets the active biome by index
+
+    */
     public void SetBiome(int index)
     {
         if (index == -1)
@@ -94,11 +178,23 @@ public class Cell : MonoBehaviour
 
     }
 
+    /* @docs
+    ## void SetBiome(Biome biome)
+
+    > Sets the active biome Biome
+
+    */
     public void SetBiome(Biome biome)
     {
         currentBiome = biome;
     }
 
+    /* @docs
+    ## void RenderBiome()
+
+    > Renders the current biome
+
+    */
     public void RenderBiome()
     {
         currentBiome.SetBounds(new Vector2(sideLength * scale, sideLength * scale));
