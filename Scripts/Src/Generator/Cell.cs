@@ -14,7 +14,6 @@ The Cell class is responsible for generating biomes.
 The Cell class contains the following public variables:
 
 ```
-
 - Biome defaultBiome
     - A fall back biome should the Cell encounter a runtime exception. If left empty a default empty biome will be used. 
 - Biome[] possibleBiomes
@@ -51,7 +50,7 @@ public class Cell : MonoBehaviour
     // Getters + Setters 
 
     /* @docs
-    ## void SetSize(int size, float scale)
+    # void SetSize(int size, float scale)
 
     > Sets the initial size and scale of the cell 
 
@@ -63,7 +62,7 @@ public class Cell : MonoBehaviour
     }
 
     /* @docs
-    ## void SetOrigin(Vector3 origin)
+    # void SetOrigin(Vector3 origin)
 
     > Sets origin of the cell 
 
@@ -88,7 +87,7 @@ public class Cell : MonoBehaviour
 
 
     /* @docs
-    ## void ClearBiomes(int length = 0)
+    # void ClearBiomes(int length = 0)
 
     > Clears possible biomes array 
 
@@ -99,7 +98,7 @@ public class Cell : MonoBehaviour
     }
 
     /* @docs
-    ## int GetNumBiomes()
+    # int GetNumBiomes()
 
     > Returns number of biomes in possible biomes array 
 
@@ -111,7 +110,7 @@ public class Cell : MonoBehaviour
 
 
     /* @docs
-    ## Biome[] GetBiomes()
+    # Biome[] GetBiomes()
 
     > Returns the possible biomes array 
 
@@ -122,7 +121,7 @@ public class Cell : MonoBehaviour
     }
 
     /* @docs
-    ## Biome GetBiome()
+    # Biome GetBiome()
 
     > Returns the active biome 
 
@@ -133,7 +132,7 @@ public class Cell : MonoBehaviour
     }
 
     /* @docs
-    ## Vector3 GetBounds()
+    # Vector3 GetBounds()
 
     > Returns the size of the Cell
 
@@ -144,7 +143,7 @@ public class Cell : MonoBehaviour
     }
 
     /* @docs
-    ## void SetBiome(int index)
+    # void SetBiome(int index)
 
     > Sets the active biome by index
 
@@ -179,7 +178,7 @@ public class Cell : MonoBehaviour
     }
 
     /* @docs
-    ## void SetBiome(Biome biome)
+    # void SetBiome(Biome biome)
 
     > Sets the active biome Biome
 
@@ -190,7 +189,7 @@ public class Cell : MonoBehaviour
     }
 
     /* @docs
-    ## void RenderBiome()
+    # void RenderBiome()
 
     > Renders the current biome
 

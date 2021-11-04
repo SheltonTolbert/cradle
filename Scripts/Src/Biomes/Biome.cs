@@ -12,21 +12,21 @@ The Biome class acts as an abstract interface for developing custom biomes to wo
 public abstract class Biome : MonoBehaviour
 {
     /* @docs 
-    ## SetBounds(Vector2)
+    # SetBounds(Vector2)
 
     > Sets the bounds of the Origin. This will almost always be the same as the cell, 
     > though in some cases, such as creating boundaries of empty space, it is necessary to set custom values.
 
-    ## SetOrigin(Vector3)
+    # SetOrigin(Vector3)
 
     > Sets the three dimensional origin of the Biome. This will almost always be the same as the cell,
     > though in some cases, such as creating boundaries of empty space, it is necessary to set custom values.
 
-    ## SetParent(string parent)
+    # SetParent(string parent)
 
     > Sets the name of the parent Cell for later reference. This is more performant than passing the context. 
 
-    ## Render()
+    # Render()
 
     > Executes the render logic of the biome.
     
