@@ -50,8 +50,8 @@ def writeToFile(docs,destinationPath):
 
 def main():
     print('Generating Docs...')
-    output = generateDocs(getFiles('../Assets/Scripts/'))
-    writeToFile(output, '../Assets/Docs/docs.md')
+    output = generateDocs(getFiles('../Scripts/'))
+    writeToFile(output, '../README.md')
     
 if __name__ == '__main__':
     main()
