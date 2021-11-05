@@ -1,6 +1,7 @@
 from pathlib import Path
 import os
 import fileinput
+import sys
 
 # Recursively iterate through file system pulling out .cs files
 def getFiles(parent, memo = []):
@@ -50,8 +51,16 @@ def writeToFile(docs,destinationPath):
 
 def main():
     print('Generating Docs...')
-    output = generateDocs(getFiles('../Assets/Scripts/'))
-    writeToFile(output, '../Assets/Docs/docs.md')
+    
+    outputPath = '../Scripts/'
+    filePath = '../README.md'
+    
+    if len(sys.argv) == 2:
+        outputPath = '../Assets/Scripts/'
+        filePath = '../Assets/README.md'
+
+    output = generateDocs(getFiles(outputPath))
+    writeToFile(output, filePath)
     
 if __name__ == '__main__':
     main()

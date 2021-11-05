@@ -12,7 +12,6 @@ The Generator class is responsible for generating and managing the cells which m
 The Generator class contains the following public variables: 
 
 ```
-
 - Cell cell
     - The Cell should be populated with a Cell that is a component of a prefab. This way default biomes can be set by the user.
 - Bool regenerate
@@ -61,7 +60,7 @@ public class Generator : MonoBehaviour
 
 
     /* @docs 
-    ## public float getPerlinValue(float x, float y)
+    # public float getPerlinValue(float x, float y)
 
     > Returns a coherent noise value between 0 and 1 based on the origin, seed and noise scale of the generator
     */
@@ -75,7 +74,7 @@ public class Generator : MonoBehaviour
     }
 
     /* @docs
-    ## public (int,int) GetDimensions()
+    # public (int,int) GetDimensions()
 
     > returns a tuple with the demensions of the grid
     */
@@ -87,7 +86,7 @@ public class Generator : MonoBehaviour
     }
 
     /* @docs 
-    ##private void InstantiateCell(int index, float x, float z, Color color)
+    #private void InstantiateCell(int index, float x, float z, Color color)
 
     > Instantiates a cell at a point x,z with a terrain color specified by the color argument. Cell is added to the cell array at the specified index
     */
