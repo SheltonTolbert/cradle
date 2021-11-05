@@ -29,10 +29,12 @@ public abstract class Biome : MonoBehaviour
     ## Render()
 
     > Executes the render logic of the biome.
-    
+
     */
+
     public abstract void SetBounds(Vector2 cellBounds);
     public abstract void SetOrigin(Vector3 origin);
     public abstract void SetParent(string parent);
     public abstract void Render();
+    public abstract Material GetTerrainMaterial();
 }

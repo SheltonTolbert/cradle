@@ -9,10 +9,16 @@ public class CityBiome : Biome
     public int numStructures;
     public int numStreetsX = 2;
     public int numStreetsY = 1;
+    public Material terrainMaterial;
 
     private Vector2 bounds;
     private Vector3 biomeOrigin;
     private Transform parentTransform;
+
+    public override Material GetTerrainMaterial()
+    {
+        return terrainMaterial;
+    }
 
     public override void SetBounds(Vector2 cellBounds)
     {

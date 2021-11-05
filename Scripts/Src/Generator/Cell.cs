@@ -40,6 +40,7 @@ public class Cell : MonoBehaviour
     private Color debugColor = Color.gray;
     private Renderer meshRenderer;
     private float scale = 1.0f;
+    private Material terrainMaterial;
 
     public Biome defaultBiome;
     public Biome[] possibleBiomes;
@@ -175,6 +176,7 @@ public class Cell : MonoBehaviour
         {
             currentBiome = possibleBiomes[currentBiomeIndex];
         }
+        terrainMaterial = currentBiome.GetTerrainMaterial();
 
     }
 
@@ -204,6 +206,7 @@ public class Cell : MonoBehaviour
         // Render Debug Color
         Renderer meshRenderer = GetComponent<Renderer>();
         meshRenderer.material.SetColor("_Color", debugColor);
+        meshRenderer.material = terrainMaterial;
     }
 
 
@@ -218,8 +221,8 @@ public class Cell : MonoBehaviour
         {
             for (float x = 0; x <= sideLength; x++)
             {
-                // TODO implement noise height
-                //float height = Mathf.PerlinNoise((x + transform.position.x) * 0.1f, (z + transform.position.z) * 0.1f) * 2.0f;
+
+                float height = Mathf.PerlinNoise((x + transform.position.x) * 0.1f, (z + transform.position.z) * 0.1f) * 2.0f;
 
                 vertices[index] = new Vector3(x * scale, 0, z * scale);
                 index++;

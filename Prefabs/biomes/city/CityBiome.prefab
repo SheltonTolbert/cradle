@@ -46,3 +46,6 @@ MonoBehaviour:
   structures:
   - {fileID: 2532507400334153459, guid: 68d2ff67d9e9d1a4991ef3d8484328fc, type: 3}
   numStructures: 20
+  numStreetsX: 2
+  numStreetsY: 1
+  terrainMaterial: {fileID: 2100000, guid: d76601e1dca0d8146997f0aa620299e1, type: 2}

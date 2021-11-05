@@ -6,10 +6,16 @@ public class PlainsBiome : Biome
 {
     public GameObject[] structures;
     public int numStructures;
+    public Material terrainMaterial;
 
     private Vector2 bounds;
     private Vector3 biomeOrigin;
     private Transform parentTransform;
+
+    public override Material GetTerrainMaterial()
+    {
+        return terrainMaterial;
+    }
 
     public override void SetBounds(Vector2 cellBounds)
     {
